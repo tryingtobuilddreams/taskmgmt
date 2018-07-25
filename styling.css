@@ -1,0 +1,29 @@
+#titlebar {
+    background-color: #28a745;
+}
+
+#sidebar {
+    background-color:#71dd8a;
+    
+}
+
+
+fieldset {
+    text-align: center;
+    display: inline-block;
+}
+
+.form-group textarea{
+    width: 400px;
+    height: 200px;
+}
+
+.form-group {
+    float: left;
+}
+.post-display {
+    float: right;
+}
+.filterGroup {
+    float:right;
+}
