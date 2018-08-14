@@ -13,17 +13,3 @@ fieldset {
     display: inline-block;
 }
 
-.form-group textarea{
-    width: 400px;
-    height: 200px;
-}
-
-.form-group {
-    float: left;
-}
-.post-display {
-    float: right;
-}
-.filterGroup {
-    float:right;
-}

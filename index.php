@@ -60,29 +60,81 @@ if(isset($_POST['submit'])){
         <meta charset="UTF-8">
         <title>Login</title>
         <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="landingpages.css">
     </head>
     <body>
-        <div class="navBar">
-            <div class="container-fluid">
-                <nav id="titlebar">
-                    <h1>INSERT LOGO AND TITLE HERE</h1>
-                    <a href="index.php">Login</a>
-                    <a href="registration.php">Register</a>
-                </nav>
-            </div>
+
+<!-- Navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-main">
+          <a class="navbar-brand" href="#">Insert Logo</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Login<span class="sr-only">(current)</span></a>
+              </li>
+              
+              
+              <!-- Dead link, requires content -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              
+              
+              <!-- Dead link, requires content -->
+              <li class="nav-item">
+                <a class="nav-link" href="#">Pricing</a>
+              </li>
+              
+              
+              <li class="nav-item">
+                  <a class="nav-link" href="registration.php">Register</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            
         </div>
-        <div class="container">
-            <div class="jumbotron">
-                <form action="index.php" method="post">
-                    <fieldset>
-                        <legend>Login</legend>
-                        <input type="number" id="company" name="company" placeholder="Company Id"><br>
-                        <input type="email" id="email" name="email" placeholder="Enter Email"> <br>
-                        <input type="password" id="password" name="password" placeholder="Enter Password"> <br>
-                        <input type="submit" value="Submit" name="submit" id="submit">
-                    </fieldset>
-                </form>
+            <div class="card col-md-6">
+                <div class="card-header" align="center">
+                    Login
+                </div>
+                <div class="card-body">
+                    <form action="index.php" method="post">
+                        <div class="form-row">
+                            <div class="col">
+                            </div>
+                            <div class="col">
+                        <input type="text" class="form-control" id="company" name="company" placeholder="Company Id">
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                        
+                        
+                        <!-- ALTERNATE FORM FIELDS -->
+                        
+                        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+                        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+                        <input type="submit" class="btn col-12" value="Submit" name="submit" id="submit">
+                    </form>
+                        <!-- Original button --> 
+                        <!-- <button type="button" class="btn btn-link col-12">Alternate Sign-In</button> -->
+                        <button type="button" class="btn btn-link col-12">Alternate Sign-In</button>
+                </div>
             </div>
+        <div class="col-md-3">
+    
         </div>
+    </div>
+</div>
     </body>
 </html>

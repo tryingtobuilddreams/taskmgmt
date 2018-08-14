@@ -43,38 +43,121 @@ if(isset($_POST['submit'])){
 
     </head>
     <body>
-        <div class="container-fluid">
-            <nav id="titlebar">
-                <div class="d-flex">
-                    <div class="mr-auto p-2"><h2>INSERT LOGO AND TITLE</h2></div>
-                    <div class="p-2">
-                        <div class="btn-group-lg" role="group">
-                            <button type="button" class="btn btn-primary" onclick="location.href='home.php';">Home</button>
-                            <button type="button" class="btn btn-primary" onclick="location.href='settings.php';">Settings</button>
-                            <button type="button" class="btn btn-danger" onclick="location.href='index.php';">Log Out</button>
-                        </div>
-                    
-                </div>
-            </nav>
-        </div>
-        <div class="container-fluid">
-                    
-        <form action="home.php" method="post">
+        <!-- This is the navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-main">
+          <a class="navbar-brand" href="#">Insert Logo</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="home.php">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="settings.php">Settings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.php">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        <!-- This is the main post display --> 
+        <div class="container">
             <div class="row">
-                <div class="form-group">
-                    <div class="col-lg-4">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-6">
+                    <nav id="post-display">
+                         <!-- query selects all posts  -->
+                        <?php
+                            // sorts posts by descending post keys. Works because keys auto increment.
+                            if(isset($_GET['order'])) {
+                                $order = $_GET['order'];
+                            } else {
+                                $order = 'post_id';
+                            }
+                            if(isset($_GET['sort'])){
+                                $sort = $_GET['sort'];
+                            } else {
+                                $sort = 'DESC';
+                            }
+                            
+                            $posts_query = "SELECT * FROM posts ORDER BY $order $sort";
+                            $select_posts = mysqli_query($connection, $posts_query);
+                            
+                            
+
+                            while($row=mysqli_fetch_assoc($select_posts)){
+                            
+                                $author=$row['post_author'];
+                                $category=$row['post_category'];
+                                $title=$row['post_title'];        
+                                $date=$row['post_date'];        
+                                $content=$row['post_content'];
+                                $location=$row['location'];
+                            
+                                
+                        ?>
+
+                         <!--Posts are formatted using bootstrap cards. Php variables are
+                        added by using the while loop. -->
+                        
+
+                         
+                         
+                         
+                         
+                         
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title"><?php echo "$title"; ?></h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><?php echo "$content"; ?></h6>
+                            <div class="card-footer text-muted">
+                                <table>
+                                    <tbody>
+                                        <td><?php echo "$date"?></td>
+                                        <td><?php echo "$author" ?></td>
+                                        <td><?php echo "$location" ?></td>
+                                        <td><?php echo "$category" ?></td>
+                                        <td>
+                                            <form action="home.php" method="get">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="resolveCheck" id="resolveCheck"> 
+                                                    <label for="resolveCheck">Resolved</label> <br>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                          </div>
+                        </div>
+                         
+                            <?php } ?>
+                    </nav>
+                </div>
+                <div class="col-md-4">
+                    <!-- Form for creating a new post -->
+                    
+                    
+                    <form action="home.php" method="post">
+                        <div class="form-group">
                         <fieldset>
                             <legend> Create Post</legend>
-                            <input type="text" name="title" id="title" placeholder="Title (Max 30 characters)" size="30"> <br>
-                            <textarea name="descript" id="descript" placeholder="Description (Max 500 characters)"></textarea><br>    
-                            <select name="category">
+                                    <input class="form-control" type="text" name="title" id="title" placeholder="Title (Max 30 characters)">
+                                    <textarea class="form-control" name="descript" id="descript" placeholder="Description (Max 500 characters)"></textarea>
+                            
+                            <select class="custom-select" name="category">
                                 <option value="Admin">Administrative</option>
                                 <option value="Boot">Boot</option>
                                 <option value="Maintenance">Maintenance</option>
                                 <option value="Pay Station">Pay Station</option>
                                 <option value="Rates">Rates</option>
                             </select>
-                            <select name="location">
+                            <select class="custom-select" name="location">
                                 <option value="001">N/A</option>
                                 <option value="101">101</option>
                                 <option value="103">103</option>
@@ -115,104 +198,16 @@ if(isset($_POST['submit'])){
                                 <option value="201">201</option>
                                 <option value="202">202</option>
                             </select>
-                            <button type="submit" name="submit" id="submit">Create Post</button>
+                            <button class="btn btn-secondary col-12" type="submit" name="submit" id="submit">Create Post</button>
                         </fieldset>
-                    </div>
+                        </div>
+                    </form>
                 </div>
+                
             </div>
-        </form>
-        
-        <h1>Welcome <?php echo $_SESSION['fname']; ?></h1>
-        
-            <nav id="post-display">
-                <div class="row">
-                    <div class="col-lg-7">
-                         <!-- query selects all posts  -->
-                        <?php
-                            // sorts posts by descending post keys. Works because keys auto increment.
-                            if(isset($_GET['order'])) {
-                                $order = $_GET['order'];
-                            } else {
-                                $order = 'post_id';
-                            }
-                            if(isset($_GET['sort'])){
-                                $sort = $_GET['sort'];
-                            } else {
-                                $sort = 'DESC';
-                            }
-                            
-                            $posts_query = "SELECT * FROM posts ORDER BY $order $sort";
-                            $select_posts = mysqli_query($connection, $posts_query);
-                            
-                            
-
-                            while($row=mysqli_fetch_assoc($select_posts)){
-                            
-                                $author=$row['post_author'];
-                                $category=$row['post_category'];
-                                $title=$row['post_title'];        
-                                $date=$row['post_date'];        
-                                $content=$row['post_content'];
-                                $location=$row['location'];
-                            
-                                
-                        ?>
-
-                         <!--Posts are formatted using bootstrap cards. Php variables are
-                        added by using the while loop. -->
-                        
-                        <div class="card" style="width: 50rem;">
-                          <div class="card-body">
-                            <h5 class="card-title"><?php echo "$title"; ?></h5>
-
-                            <h6 class="card-subtitle mb-2 text-muted"><?php echo "$content"; ?></h6>
-                            <div class="card-footer text-muted">
-                                <table>
-                                    <col width="200">
-                                    <col width="150">
-                                    <col width="150">
-                                    <col width="150">
-                                    <tbody>
-                                        <td><?php echo "$date"?></td>
-                                        <td><?php echo "$author" ?></td>
-                                        <td><?php echo "$location" ?></td>
-                                        <td><?php echo "$category" ?></td>
-                                        <td>
-                                            <form action="home.php" method="get">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" name="resolveCheck" id="resolveCheck"> 
-<!--                                                    <input type="checkbox" class="custom-control-input" id="customCheck1">-->
-                                                    <label for="resolveCheck">Resolved</label> <br>
-                                                </div>
-                                            </form>
-                                            <form action="home.php" method="post">
-                                                <select>
-                                                    
-                                                </select>
-                                            </form>
-                                        </td>
-                                    </tbody>
-                                </table>
-                            </div>
-                          </div>
-                        </div>
-                         
-                            <?php } ?>
-                    </div>
-                </div>
-            </nav>
-    
-            <nav id="filterGroup">
-                <div class="row">
-                    <div class="col-lg-1">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="secondary" id="sideButton" name="sideButton">Drop</button>
-                        </div>
-                    </div>
-                </div>
-            </nav>
         </div>
-    <script src="script.js">
+    <!-- link to javascript file -->    
+    <script type="text/javascript" src="script.js">
     </script>
     </body>
 </html>

@@ -51,35 +51,66 @@ session_start();
 
 </head>
     <body>
-        <div class="container-fluid">
-            <nav id="titlebar">
-                <div class="d-flex">
-                    <div class="mr-auto p-2"><h2>INSERT LOGO AND TITLE</h2></div>
-                    <div class="p-2">
-                    <div class="btn-group-lg" role="group">
-                        <button type="button" class="btn btn-primary" onclick="location.href='home.php';">Home</button>
-                        <button type="button" class="btn btn-primary" onclick="location.href='settings.php';">Settings</button>
-                        <button type="button" class="btn btn-danger" onclick="location.href='index.php';">Log Out</button>
-                    </div>
-                </div>
-                </div>
-            </nav>
-        </div>
-<!--                <div class="sidenav">
-                    <div class="btn-group-vertical">
-                        <button type="button" name="Home" >Home</button>
-                        <button type="button" name="Settings" ></button>
-                        <button type="button" name="Scheduling" ></button>
-                        <button type="button" name="Reports" ></button>
-                        <button type="button" name="Contact Us" ></button>
-                        <button type="button" name="Log Out" ></button>
-                    </div>
-                </div>-->
-        <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-main">
+          <a class="navbar-brand" href="#">Insert Logo</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="home.php">Home<span class="sr-only">(current)</span></a>
+              </li>
+              <!-- Dead link, requires content -->
+              <li class="nav-item active">
+                <a class="nav-link" href="settings.php">Settings</a>
+              </li>
+              <!-- Dead link, requires content -->
+              <li class="nav-item">
+                <a class="nav-link" href="index.php">Logout</a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+        <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-2">
+                    <!-- empty column --> 
+                </div>
+                <!-- main content area -->
+                <div class="col-md-6">
+                        
                     <form action="settings.php" method="post">
-                        <div class="form-group">
+                        <!-- displays current user credentials -->
+                        
+                            <div class="card">
+                                <div class="card-header">
+                                    Account Information
+                                </div>
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td><?php echo $_SESSION['fname']." ".$_SESSION['lname']; ?></td>
+                                            <td><button type="button" class="btn btn-link" id="nameEdit">Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><?php echo $_SESSION['email']; ?></td>
+                                            <td><button type="button" class="btn btn-link" id="emailEdit">Edit</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Time Zone</td>
+                                            <td>Time Zone from Database</td>
+                                            <td><button type="button" class="btn btn-link">Edit</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                            <!-- lets user change the timezone -->
+                        <div class="card">
                             <select name="timezone" id="timezone">
                                 <option value="America/Chicago">Central</option>
                                 <option value="America/New_York">Eastern</option>
@@ -91,32 +122,13 @@ session_start();
                                 <option value="Pacific/Honolulu">Hawaii (no DST)</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" name="save" id="save">Save</button> <br>
-                            <button type="button" name="edit" id="edit">Edit</button> <br>
-                        </div>
-                        <div class='form-group'>
-                            <div class="currentCredentials">
-                                <p>Email: <?php echo $_SESSION['email'];?></p>
-                                <p>First name: <?php echo $_SESSION['fname'];?></p>
-                                <p>Last name: <?php echo $_SESSION['lname'];?></p> 
-                            </div>
-                            <div class="editInfo" id="editInfo">
-                                <label for="changeEmail">Email Address</label>
-                                <input type="text" name="changeEmail" id="changeEmail" placeholder="Enter New Email"> 
-                                <button type="submit" name="subEmail" id="subEmail">Edit Email</button><br>
-                                <input type="text" name="changeFirst" id="changeFirst" placeholder="New First Name"> 
-                                <button type="submit" name="subFirst" id="subFirst">Edit First Name</button><br>
-                                <input type="text" name="changeLast" id="changeLast" placeholder="New Last Name">
-                                <button type="submit" name="subLast" id="subLast">Edit First Name</button><br>
-                                <input type="password" name="changePassword" id="changePassword" placeholder="Enter New Password">
-                                <button type="submit" name="subPassword" id="subPassword">Edit First Name</button>
-                             </div>
-
-                        </div>
                     </form>
+                    </div>
+                <div class="col-md-4">
+                    <!-- empty column row -->
                 </div>
-            </div>
+                </div>
         </div>
+        <script type="text/javascript" src="script.js"></script>
     </body>
 </html>
